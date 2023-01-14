@@ -10,9 +10,11 @@ package com.mycompany.calculator_app;
  */
 public class calculadora extends javax.swing.JFrame {
 
-    /**
-     * Creates new form calculadora
-     */
+    
+    public float primernumero;
+    public float segundonumero;
+    public String operador;
+    
     public calculadora() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -145,6 +147,11 @@ public class calculadora extends javax.swing.JFrame {
         jButton12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton12.setForeground(new java.awt.Color(255, 255, 255));
         jButton12.setText("+");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setBackground(new java.awt.Color(153, 153, 153));
         jButton13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -190,11 +197,21 @@ public class calculadora extends javax.swing.JFrame {
         jButton19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton19.setForeground(new java.awt.Color(255, 255, 255));
         jButton19.setText(",");
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
 
         jButton20.setBackground(new java.awt.Color(153, 153, 153));
         jButton20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton20.setForeground(new java.awt.Color(255, 255, 255));
         jButton20.setText("=");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -342,9 +359,41 @@ public class calculadora extends javax.swing.JFrame {
         this.casilla.setText(this.casilla.getText()+9);       
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        this.primernumero = Float.parseFloat(this.casilla.getText());
+        this.operador = "+";
+        this.casilla.setText("");
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        this.segundonumero = Float.parseFloat(this.casilla.getText());
+        
+        switch(this.operador){
+            case "+" : this.casilla.setText(sincero(this.primernumero + this.segundonumero));break;
+            case "-" : this.casilla.setText(sincero(this.primernumero - this.segundonumero));break;
+            case "*" : this.casilla.setText(sincero(this.primernumero * this.segundonumero));break;
+            case "/" : this.casilla.setText(sincero(this.primernumero / this.segundonumero));break;
+        }
+        
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        if(!(this.casilla.getText().contains("."))){
+            this.casilla.setText(this.casilla.getText()+"."); 
+        }
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    
+    public String sincero(float resultado){
+        String retorno = "";
+        retorno = Float.toString(resultado);
+        if(resultado%1==0){
+            retorno = retorno.substring(0,retorno.length()-2);
+        }
+        return retorno;
+    }
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
